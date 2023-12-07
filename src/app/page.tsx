@@ -1,3 +1,9 @@
+"use client";
+
+import TodoCard from "@/components/todo-card";
+import { Todo } from "@/types/todo";
+import { useRef, useState } from "react";
+
 export default function Home() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const titleRef = useRef<HTMLInputElement>(null);
