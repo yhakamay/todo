@@ -2,7 +2,7 @@ import { Todo } from "@/types/todo";
 
 export default function TodoCard({ todo }: { todo: Todo }) {
   return (
-    <div className="text-center border border-base-content card bg-base-100">
+    <div className="card card-compact bg-base-100 shadow-sm border border-base-content">
       <div className="card-body">
         {todo.frequency === "daily" ? (
           <div className="badge badge-primary">daily</div>
@@ -15,10 +15,7 @@ export default function TodoCard({ todo }: { todo: Todo }) {
         ) : (
           <div className="badge">once</div>
         )}
-        <h2 className="text-xl">{todo.title}</h2>
-        <p className={todo.description ? "" : "italic"}>
-          {todo.description ?? "No description"}
-        </p>
+        <h2 className="card-title">{todo.title}</h2>
       </div>
     </div>
   );
