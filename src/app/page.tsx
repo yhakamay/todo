@@ -11,7 +11,7 @@ export default function Home() {
 
   return (
     <main className="flex flex-col items-center gap-4 min-h-screen p-24">
-      <div className="flex flex-row gap-2 w-full max-w-xl">
+      <div className="flex flex-row gap-2 w-full max-w-4xl">
         <input
           type="text"
           ref={titleRef}
@@ -38,19 +38,19 @@ export default function Home() {
         </button>
       </div>
       <h2 className="text-xl mt-4">Today</h2>
-      <div className="flex flex-col gap-2 w-full max-w-xl">
+      <div className="flex flex-col gap-2 w-full max-w-4xl">
         <TodoCardList todos={todos} frequency="daily" />
       </div>
       <h2 className="text-xl mt-4">This week</h2>
-      <div className="flex flex-col gap-2 w-full max-w-xl">
+      <div className="flex flex-col gap-2 w-full max-w-4xl">
         <TodoCardList todos={todos} frequency="weekly" />
       </div>
       <h2 className="text-xl mt-4">This month</h2>
-      <div className="flex flex-col gap-2 w-full max-w-xl">
+      <div className="flex flex-col gap-2 w-full max-w-4xl">
         <TodoCardList todos={todos} frequency="monthly" />
       </div>
       <h2 className="text-xl mt-4">This year</h2>
-      <div className="flex flex-col gap-2 w-full max-w-xl">
+      <div className="flex flex-col gap-2 w-full max-w-4xl">
         <TodoCardList todos={todos} frequency="yearly" />
       </div>
     </main>
