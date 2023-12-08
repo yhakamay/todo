@@ -3,8 +3,8 @@ import { GeistMono, GeistSans } from "geist/font";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Todo",
-  description: "Yusuke's Todo App",
+  title: "Motchi",
+  description: "A todo app for daily tasks",
 };
 
 export default function RootLayout({
