@@ -16,7 +16,7 @@ export default function TodoCardList(props: todoCardListPtops) {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
+    <div className="grid grid-cols-1 gap-2 lg:grid-cols-2">
       {filteredTodos.map((todo) => (
         <TodoCard key={todo.id} todo={todo} />
       ))}
