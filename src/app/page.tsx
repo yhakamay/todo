@@ -1,6 +1,6 @@
 "use client";
 
-import TodoCard from "@/components/todo-card";
+import TodoCardList from "@/components/todo-card-list";
 import { Todo } from "@/types/todo";
 import { useRef, useState } from "react";
 
@@ -10,8 +10,8 @@ export default function Home() {
   const frequencyRef = useRef<HTMLSelectElement>(null);
 
   return (
-    <main className="flex min-h-screen flex-col items-center gap-4 p-24">
-      <div className="flex flex-row gap-2 w-full max-w-lg">
+    <main className="flex flex-col items-center gap-4 min-h-screen p-24">
+      <div className="flex flex-row gap-2 w-full max-w-xl">
         <input
           type="text"
           ref={titleRef}
@@ -37,10 +37,21 @@ export default function Home() {
           Add
         </button>
       </div>
-      <div className="flex flex-col gap-2 w-full max-w-lg">
-        {todos.map((todo) => (
-          <TodoCard todo={todo} key={todo.id} />
-        ))}
+      <h2 className="text-xl mt-4">Today</h2>
+      <div className="flex flex-col gap-2 w-full max-w-xl">
+        <TodoCardList todos={todos} frequency="daily" />
+      </div>
+      <h2 className="text-xl mt-4">This week</h2>
+      <div className="flex flex-col gap-2 w-full max-w-xl">
+        <TodoCardList todos={todos} frequency="weekly" />
+      </div>
+      <h2 className="text-xl mt-4">This month</h2>
+      <div className="flex flex-col gap-2 w-full max-w-xl">
+        <TodoCardList todos={todos} frequency="monthly" />
+      </div>
+      <h2 className="text-xl mt-4">This year</h2>
+      <div className="flex flex-col gap-2 w-full max-w-xl">
+        <TodoCardList todos={todos} frequency="yearly" />
       </div>
     </main>
   );
