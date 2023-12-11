@@ -1,29 +1,19 @@
 "use client";
 
-import { onAuthStateChanged, signOut } from "@/lib/firebase/auth";
-import { User } from "firebase/auth";
+import { auth } from "@/lib/firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 
-type HeaderProps = {
-  initialUser: User | null;
-};
-
-export default function Header(props: HeaderProps) {
-  const { initialUser } = props;
-  const user = useUserSession(initialUser);
+export default function Header() {
   const router = useRouter();
-  const handleSignOut = async (event: { preventDefault: () => void }) => {
-    event.preventDefault();
-    try {
-      await signOut();
-      router.push("/login");
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const [user, loadingAuthState, _errorAuthState] = useAuthState(auth);
+  const [signOut, loadingSignOut, _errorSignOut] = useSignOut(auth);
+
+  if (user) {
+    router.push("/");
+  }
 
   return (
     <header className="navbar bg-base-100">
@@ -33,7 +23,7 @@ export default function Header(props: HeaderProps) {
         </Link>
       </div>
       <div className="flex-none">
-        {user ? (
+        {user && !loadingAuthState && !loadingSignOut && (
           <>
             <div className="dropdown dropdown-end">
               <div
@@ -56,45 +46,15 @@ export default function Header(props: HeaderProps) {
                 className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
               >
                 <li>
-                  <button onClick={handleSignOut} className="text-error">
+                  <button onClick={() => signOut()} className="text-error">
                     Logout
                   </button>
                 </li>
               </ul>
             </div>
           </>
-        ) : (
-          <Link href="/login">Sign In</Link>
         )}
       </div>
     </header>
   );
-}
-
-function useUserSession(initialUser: User | null) {
-  const [user, setUser] = useState<User | null>(initialUser);
-  const router = useRouter();
-
-  useEffect(() => {
-    const unsub = onAuthStateChanged((authUser) => {
-      setUser(authUser);
-    });
-
-    return () => unsub();
-  }, []);
-
-  useEffect(() => {
-    onAuthStateChanged((authUser) => {
-      if (user === undefined) {
-        return;
-      }
-
-      if (user?.email !== authUser?.email) {
-        router.refresh();
-      }
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
-
-  return user;
 }
