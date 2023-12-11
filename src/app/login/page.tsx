@@ -18,11 +18,7 @@ export default function Login() {
   }
 
   if (loading || loadingAuthState) {
-    return (
-      <main className="flex flex-col items-center gap-4 min-h-screen p-24">
-        <span className="loading loading-ring loading-lg"></span>
-      </main>
-    );
+    return <span className="loading loading-ring loading-lg"></span>;
   }
 
   if (user) {
@@ -30,7 +26,7 @@ export default function Login() {
   }
 
   return (
-    <main className="flex flex-col items-center gap-4 min-h-screen p-24">
+    <>
       <h1 className="text-2xl font-black">Welcome to motchi!</h1>
       <p className="mb-8">
         motchi helps you to keep your important things in mind.
@@ -48,6 +44,6 @@ export default function Login() {
       >
         I already have an account
       </button>
-    </main>
+    </>
   );
 }

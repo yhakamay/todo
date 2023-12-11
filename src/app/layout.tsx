@@ -19,8 +19,10 @@ export default function RootLayout({
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body>
         <Header />
-        {children}
-        <SpeedInsights />
+        <main className="flex flex-col items-center gap-4 min-h-screen p-24">
+          {children}
+          <SpeedInsights />
+        </main>
       </body>
     </html>
   );
