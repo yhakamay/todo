@@ -30,7 +30,7 @@ export default function Login() {
     <>
       <Image src={"/motchi.svg"} width={64} height={64} alt={"logo"} />
       <h1 className="text-2xl font-black">Welcome to motchi!</h1>
-      <p className="mb-8">
+      <p className="mb-8 text-center">
         motchi helps you to keep your important things in mind.
       </p>
       <button

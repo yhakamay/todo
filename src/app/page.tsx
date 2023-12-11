@@ -35,7 +35,7 @@ export default function Home() {
       <>
         <Image src={"/motchi.svg"} width={64} height={64} alt={"logo"} />
         <h1 className="text-2xl font-black">Sign in to continue</h1>
-        <p className="mb-8">
+        <p className="mb-8 text-center">
           You need to sign in to motchi first to store your todos.
         </p>
         <Link autoFocus href="/login" replace className="btn btn-primary">
