@@ -9,11 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@vercel/speed-insights": "^1.0.0",
     "firebase": "^10.7.1",
     "firebase-admin": "^12.0.0",
+    "@vercel/speed-insights": "^1.0.1",
     "geist": "^1.2.0",
-    "next": "14.0.3",
+    "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18"
   },
@@ -24,7 +24,7 @@
     "autoprefixer": "^10",
     "daisyui": "^4.4.19",
     "eslint": "^8",
-    "eslint-config-next": "14.0.3",
+    "eslint-config-next": "14.0.4",
     "eslint-plugin-unused-imports": "^3.0.0",
     "postcss": "^8",
     "tailwindcss": "^3",
