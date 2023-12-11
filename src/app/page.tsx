@@ -32,7 +32,7 @@ export default function Home() {
 
   if (!user) {
     return (
-      <main className="flex flex-col items-center gap-4 min-h-screen p-24">
+      <>
         <Image src={"/motchi.svg"} width={64} height={64} alt={"logo"} />
         <h1 className="text-2xl font-black">Sign in to continue</h1>
         <p className="mb-8">
@@ -49,28 +49,20 @@ export default function Home() {
             <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
           </svg>
         </Link>
-      </main>
+      </>
     );
   }
 
   if (error || errorAuthState) {
-    return (
-      <main className="flex flex-col items-center gap-4 min-h-screen p-24">
-        <FailedToFetchAlert />
-      </main>
-    );
+    return <FailedToFetchAlert />;
   }
 
   if (loading || todos === undefined) {
-    return (
-      <main className="flex flex-col items-center gap-4 min-h-screen p-24">
-        <span className="loading loading-ring loading-lg"></span>
-      </main>
-    );
+    return <span className="loading loading-ring loading-lg"></span>;
   }
 
   return (
-    <main className="flex flex-col items-center gap-4 min-h-screen p-24">
+    <>
       <div className="flex flex-row gap-2 w-full max-w-4xl">
         <input
           type="text"
@@ -114,7 +106,7 @@ export default function Home() {
       <div className="flex flex-col gap-2 w-full max-w-4xl">
         <TodoCardList todos={todos} frequency="yearly" />
       </div>
-    </main>
+    </>
   );
 
   async function handleClick() {
