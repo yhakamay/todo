@@ -1,26 +1,43 @@
+import { auth } from "@/lib/firebase/auth";
+import { db } from "@/lib/firebase/firestore";
 import { Todo } from "@/types/todo";
+import { doc, updateDoc } from "firebase/firestore";
 
-export default function TodoCard({ todo }: { todo: Todo }) {
+type TodoCardProps = {
+  todo: Todo;
+  completed: boolean;
+};
+
+export default function TodoCard(props: TodoCardProps) {
+  const { todo, completed } = props;
+
   return (
     <div className="card card-compact bg-base-100 shadow-sm border border-base-content">
       <div className="card-body">
-        {todo.frequency === "daily" ? (
-          <div className="badge badge-primary">daily</div>
-        ) : todo.frequency === "weekly" ? (
-          <div className="badge badge-secondary">weekly</div>
-        ) : todo.frequency === "monthly" ? (
-          <div className="badge badge-accent">monthly</div>
-        ) : todo.frequency === "yearly" ? (
-          <div className="badge badge-neutral">yearly</div>
-        ) : (
-          <div className="badge">once</div>
-        )}
+        <div className="flex flex-row gap-2">
+          {todo.frequency === "daily" ? (
+            <div className="badge badge-primary">daily</div>
+          ) : todo.frequency === "weekly" ? (
+            <div className="badge badge-secondary">weekly</div>
+          ) : todo.frequency === "monthly" ? (
+            <div className="badge badge-accent">monthly</div>
+          ) : todo.frequency === "yearly" ? (
+            <div className="badge badge-neutral">yearly</div>
+          ) : (
+            <div className="badge">once</div>
+          )}
+          {completed && (
+            <div className="badge badge-success badge-outline">completed</div>
+          )}
+        </div>
         <h2 className="card-title">{todo.title}</h2>
         <div className="card-actions justify-end">
           <button
+            onClick={() => handleClick(todo)}
             className="btn btn-square btn-outline"
             title="complete"
             type="button"
+            disabled={completed}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -41,3 +58,18 @@ export default function TodoCard({ todo }: { todo: Todo }) {
     </div>
   );
 }
+
+const handleClick = async (todo: Todo) => {
+  const docRef = doc(db, "users", auth.currentUser!.uid, "todos", todo.id!);
+
+  await updateDoc(
+    docRef,
+    todo.completedDates
+      ? {
+          completedDates: [...todo.completedDates, new Date()],
+        }
+      : {
+          completedDates: [new Date()],
+        }
+  );
+};
