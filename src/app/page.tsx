@@ -12,7 +12,7 @@ import {
   addDoc,
   collection,
 } from "firebase/firestore";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useRef } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
@@ -20,7 +20,6 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 export default function Home() {
   const titleRef = useRef<HTMLInputElement>(null);
   const frequencyRef = useRef<HTMLSelectElement>(null);
-  const router = useRouter();
   const [user, _, errorAuthState] = useAuthState(auth);
   const query = user
     ? collection(db, "users", user!.uid, "todos").withConverter(todoConverter)
@@ -30,11 +29,29 @@ export default function Home() {
   };
   const [todos, loading, error, __] = useCollectionData<Todo>(query, options);
 
-  if (errorAuthState || !user) {
-    router.push("/login");
+  if (!user) {
+    return (
+      <main className="flex flex-col items-center gap-4 min-h-screen p-24">
+        <h1 className="text-2xl font-black">Sign in to continue</h1>
+        <p className="mb-8">
+          You need to sign in to motchi first to store your todos.
+        </p>
+        <Link href="/login" replace className="btn btn-primary">
+          Go to sign in page
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="16"
+            viewBox="0 -960 960 960"
+            width="16"
+          >
+            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
+          </svg>
+        </Link>
+      </main>
+    );
   }
 
-  if (error) {
+  if (error || errorAuthState) {
     return (
       <main className="flex flex-col items-center gap-4 min-h-screen p-24">
         <FailedToFetchAlert />

@@ -31,13 +31,16 @@ export default function Login() {
 
   return (
     <main className="flex flex-col items-center gap-4 min-h-screen p-24">
-      <h1 className="text-xl">Welcome to motchi!</h1>
+      <h1 className="text-2xl font-black">Welcome to motchi!</h1>
+      <p className="mb-8">
+        motchi helps you to keep your important things in mind.
+      </p>
       <button onClick={() => signInWithGoogle()} className="btn btn-primary">
         Continue with Google
       </button>
       <button
         onClick={() => signInWithGoogle()}
-        className="brn btn-link text-sm"
+        className="brn btn-link text-xs"
       >
         I already have an account
       </button>
