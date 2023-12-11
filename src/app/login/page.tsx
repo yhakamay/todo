@@ -6,7 +6,7 @@ import { useAuthState, useSignInWithGoogle } from "react-firebase-hooks/auth";
 
 export default function Login() {
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
-  const [_, loadingAuthState, errorAuthState] = useAuthState(auth);
+  const [_user, loadingAuthState, _errorAuthState] = useAuthState(auth);
   const router = useRouter();
 
   if (error) {
