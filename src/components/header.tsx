@@ -20,6 +20,7 @@ export default function Header() {
       <div className="flex-1">
         <Link href="/" className="btn btn-ghost text-xl">
           motchi
+          <Image src={"/motchi.svg"} width={24} height={24} alt={""} />
         </Link>
       </div>
       <div className="flex-none">
