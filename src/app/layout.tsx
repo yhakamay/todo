@@ -4,7 +4,6 @@ import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Header from "@/components/header";
-import { auth } from "@/lib/firebase/auth";
 
 export const metadata: Metadata = {
   title: "Motchi",
@@ -16,12 +15,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const currentUser = auth.currentUser;
-
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body>
-        <Header initialUser={currentUser} />
+        <Header />
         {children}
         <SpeedInsights />
       </body>
