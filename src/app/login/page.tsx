@@ -35,7 +35,11 @@ export default function Login() {
       <p className="mb-8">
         motchi helps you to keep your important things in mind.
       </p>
-      <button onClick={() => signInWithGoogle()} className="btn btn-primary">
+      <button
+        autoFocus
+        onClick={() => signInWithGoogle()}
+        className="btn btn-primary"
+      >
         Continue with Google
       </button>
       <button
