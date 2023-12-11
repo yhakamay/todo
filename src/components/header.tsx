@@ -40,6 +40,7 @@ export default function Header(props: HeaderProps) {
                 tabIndex={0}
                 role="button"
                 className="btn btn-ghost btn-circle avatar"
+                title="User menu"
               >
                 <div className="w-10 rounded-full">
                   <Image
