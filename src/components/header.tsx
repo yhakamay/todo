@@ -8,8 +8,8 @@ import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 
 export default function Header() {
   const router = useRouter();
-  const [user, loadingAuthState, errorAuthState] = useAuthState(auth);
-  const [signOut, loadingSignOut, errorSignOut] = useSignOut(auth);
+  const [user, loadingAuthState, _errorAuthState] = useAuthState(auth);
+  const [signOut, loadingSignOut, _errorSignOut] = useSignOut(auth);
 
   if (user) {
     router.push("/");
@@ -23,7 +23,7 @@ export default function Header() {
         </Link>
       </div>
       <div className="flex-none">
-        {user && !loadingAuthState && (
+        {user && !loadingAuthState && !loadingSignOut && (
           <>
             <div className="dropdown dropdown-end">
               <div
