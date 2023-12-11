@@ -4,7 +4,6 @@ import {
   NextOrObserver,
   User,
   onAuthStateChanged as _onAuthStateChanged,
-  signInAnonymously as _signInAnonymously,
   signInWithPopup,
 } from "firebase/auth";
 
@@ -19,14 +18,6 @@ export async function signInWithGoogle() {
     await signInWithPopup(auth, provider);
   } catch (e) {
     console.error("Error signing in with Google", e);
-  }
-}
-
-export async function signInAnonymously() {
-  try {
-    await _signInAnonymously(auth);
-  } catch (e) {
-    console.error("Error signing in anonymously", e);
   }
 }
 
