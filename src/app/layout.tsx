@@ -6,7 +6,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import Header from "@/components/header";
 
 export const metadata: Metadata = {
-  title: "Motchi",
+  title: "motchi",
   description: "A todo app for daily tasks",
 };
 
