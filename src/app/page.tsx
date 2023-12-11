@@ -1,13 +1,54 @@
 "use client";
 
+import FailedToFetchAlert from "@/components/failed-to-fetch-alert";
 import TodoCardList from "@/components/todo-card-list";
+import { auth } from "@/lib/firebase/auth";
+import { db } from "@/lib/firebase/firestore";
 import { Todo } from "@/types/todo";
-import { useRef, useState } from "react";
+import {
+  DocumentData,
+  QueryDocumentSnapshot,
+  SnapshotOptions,
+  addDoc,
+  collection,
+} from "firebase/firestore";
+import { useRouter } from "next/navigation";
+import { useRef } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 
 export default function Home() {
-  const [todos, setTodos] = useState<Todo[]>([]);
   const titleRef = useRef<HTMLInputElement>(null);
   const frequencyRef = useRef<HTMLSelectElement>(null);
+  const router = useRouter();
+  const [user, _, errorAuthState] = useAuthState(auth);
+  const query = user
+    ? collection(db, "users", user!.uid, "todos").withConverter(todoConverter)
+    : null;
+  const options = {
+    snapshotListenOptions: { includeMetadataChanges: true },
+  };
+  const [todos, loading, error, __] = useCollectionData<Todo>(query, options);
+
+  if (errorAuthState || !user) {
+    router.push("/login");
+  }
+
+  if (error) {
+    return (
+      <main className="flex flex-col items-center gap-4 min-h-screen p-24">
+        <FailedToFetchAlert />
+      </main>
+    );
+  }
+
+  if (loading || todos === undefined) {
+    return (
+      <main className="flex flex-col items-center gap-4 min-h-screen p-24">
+        <span className="loading loading-ring loading-lg"></span>
+      </main>
+    );
+  }
 
   return (
     <main className="flex flex-col items-center gap-4 min-h-screen p-24">
@@ -56,28 +97,66 @@ export default function Home() {
     </main>
   );
 
-  function handleClick() {
-    addTodo();
+  async function handleClick() {
+    console.info("Adding todo");
+    await addTodo();
+    console.info("Todo added");
     if (titleRef.current) {
       titleRef.current.value = "";
     }
     titleRef.current?.focus();
   }
 
-  function addTodo() {
+  async function addTodo() {
     if (!titleRef.current?.value) return;
     if (!frequencyRef.current?.value) return;
 
     const newTodo: Todo = {
-      id: crypto.randomUUID(),
       title: titleRef.current?.value,
       description: null,
       createdAt: new Date(),
       lastUpdatedAt: new Date(),
       frequency: (frequencyRef.current?.value as Todo["frequency"]) ?? null,
-      completed: [],
+      completedDates: [],
     };
 
-    setTodos([...todos, newTodo]);
+    try {
+      const myTodosRef = collection(
+        db,
+        "users",
+        auth.currentUser!.uid,
+        "todos"
+      );
+      await addDoc(myTodosRef, newTodo);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
   }
 }
+
+const todoConverter = {
+  toFirestore: function (todo: Todo): DocumentData {
+    return {
+      title: todo.title,
+      description: todo.description,
+      createdAt: todo.createdAt,
+      lastUpdatedAt: todo.lastUpdatedAt,
+      frequency: todo.frequency,
+      completedDates: todo.completedDates,
+    };
+  },
+  fromFirestore: function (
+    snapshot: QueryDocumentSnapshot,
+    options: SnapshotOptions
+  ): Todo {
+    const data = snapshot.data(options);
+    return {
+      title: data.title,
+      description: data.description,
+      createdAt: data.createdAt.toDate(),
+      lastUpdatedAt: data.lastUpdatedAt.toDate(),
+      frequency: data.frequency,
+      completedDates: data.completedDates?.map((date: any) => date.toDate()),
+    };
+  },
+};
