@@ -151,6 +151,7 @@ const todoConverter = {
   ): Todo {
     const data = snapshot.data(options);
     return {
+      id: snapshot.id,
       title: data.title,
       description: data.description,
       createdAt: data.createdAt.toDate(),
