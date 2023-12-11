@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@vercel/speed-insights": "^1.0.0",
+    "firebaseui": "^6.1.0",
     "geist": "^1.2.0",
     "next": "14.0.3",
     "react": "^18",
