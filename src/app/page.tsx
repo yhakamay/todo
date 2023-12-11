@@ -38,7 +38,7 @@ export default function Home() {
         <p className="mb-8">
           You need to sign in to motchi first to store your todos.
         </p>
-        <Link href="/login" replace className="btn btn-primary">
+        <Link autoFocus href="/login" replace className="btn btn-primary">
           Go to sign in page
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -76,6 +76,7 @@ export default function Home() {
           type="text"
           ref={titleRef}
           placeholder="Type new todo"
+          autoFocus
           className="input input-bordered w-full"
         />
         <select
