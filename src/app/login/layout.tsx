@@ -9,9 +9,5 @@ export default function LoginLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <main className="flex flex-col items-center gap-4 min-h-screen p-24">
-      {children}
-    </main>
-  );
+  return children;
 }
