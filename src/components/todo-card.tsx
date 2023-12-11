@@ -17,7 +17,11 @@ export default function TodoCard({ todo }: { todo: Todo }) {
         )}
         <h2 className="card-title">{todo.title}</h2>
         <div className="card-actions justify-end">
-          <button className="btn btn-square btn-outline" title="complete">
+          <button
+            className="btn btn-square btn-outline"
+            title="complete"
+            type="button"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="stroke-current shrink-0 h-6 w-6"
