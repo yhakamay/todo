@@ -31,7 +31,7 @@ export default function Login() {
 
   return (
     <main className="flex flex-col items-center gap-4 min-h-screen p-24">
-      <h1 className="text-xl">Welcome to Motchi!</h1>
+      <h1 className="text-xl">Welcome to motchi!</h1>
       <button onClick={() => signInWithGoogle()} className="btn btn-primary">
         Continue with Google
       </button>
