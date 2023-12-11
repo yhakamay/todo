@@ -3,6 +3,7 @@
 import { Todo } from "@/types/todo";
 import TodoCard from "./todo-card";
 import { useState } from "react";
+import NoTodoAlert from "./no-todo-alert";
 
 type todoCardListPtops = {
   todos: Todo[];
@@ -53,6 +54,10 @@ export default function TodoCardList(props: todoCardListPtops) {
   const completedTodos = filteredTodos.filter(
     (todo) => !incompleteTodos.includes(todo)
   );
+
+  if (incompleteTodos.length === 0 && completedTodos.length === 0) {
+    return <NoTodoAlert message={"Nothing to show here"} />;
+  }
 
   return (
     <>
