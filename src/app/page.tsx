@@ -12,6 +12,7 @@ import {
   addDoc,
   collection,
 } from "firebase/firestore";
+import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -31,7 +32,8 @@ export default function Home() {
 
   if (!user) {
     return (
-<>
+      <>
+        <Image src={"/motchi.svg"} width={64} height={64} alt={"logo"} />
         <h1 className="text-2xl font-black">Sign in to continue</h1>
         <p className="mb-8">
           You need to sign in to motchi first to store your todos.
@@ -47,24 +49,16 @@ export default function Home() {
             <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
           </svg>
         </Link>
-</>
+      </>
     );
   }
 
   if (error || errorAuthState) {
-    return (
-
-        <FailedToFetchAlert />
-
-    );
+    return <FailedToFetchAlert />;
   }
 
   if (loading || todos === undefined) {
-    return (
-
-        <span className="loading loading-ring loading-lg"></span>
-
-    );
+    return <span className="loading loading-ring loading-lg"></span>;
   }
 
   return (
