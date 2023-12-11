@@ -12,6 +12,7 @@ import {
   addDoc,
   collection,
 } from "firebase/firestore";
+import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -32,6 +33,7 @@ export default function Home() {
   if (!user) {
     return (
       <main className="flex flex-col items-center gap-4 min-h-screen p-24">
+        <Image src={"/motchi.svg"} width={64} height={64} alt={"logo"} />
         <h1 className="text-2xl font-black">Sign in to continue</h1>
         <p className="mb-8">
           You need to sign in to motchi first to store your todos.

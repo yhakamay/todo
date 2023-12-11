@@ -1,6 +1,7 @@
 "use client";
 
 import { auth } from "@/lib/firebase/auth";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAuthState, useSignInWithGoogle } from "react-firebase-hooks/auth";
 
@@ -31,6 +32,7 @@ export default function Login() {
 
   return (
     <main className="flex flex-col items-center gap-4 min-h-screen p-24">
+      <Image src={"/motchi.svg"} width={64} height={64} alt={"logo"} />
       <h1 className="text-2xl font-black">Welcome to motchi!</h1>
       <p className="mb-8">
         motchi helps you to keep your important things in mind.
