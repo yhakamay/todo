@@ -12,25 +12,16 @@ export default function TodoCard(props: TodoCardProps) {
   const { todo, completed } = props;
 
   return (
-    <div className="card card-compact bg-base-100 shadow-sm border border-base-content">
+    <div
+      className={`card card-compact bg-base-100 shadow-sm border ${
+        completed ? "border-primary" : "border-base-content"
+      }`}
+    >
       <div className="card-body">
-        <div className="flex flex-row gap-2">
-          {todo.frequency === "daily" ? (
-            <div className="badge badge-primary">daily</div>
-          ) : todo.frequency === "weekly" ? (
-            <div className="badge badge-secondary">weekly</div>
-          ) : todo.frequency === "monthly" ? (
-            <div className="badge badge-accent">monthly</div>
-          ) : todo.frequency === "yearly" ? (
-            <div className="badge badge-neutral">yearly</div>
-          ) : (
-            <div className="badge">once</div>
-          )}
-          {completed && (
-            <div className="badge badge-success badge-outline">completed</div>
-          )}
+        <div className="flex flex-row justify-between">
+          <h2 className="card-title">{todo.title}</h2>
+          {completed && <div className="badge badge-primary">completed</div>}
         </div>
-        <h2 className="card-title">{todo.title}</h2>
         <div className="card-actions justify-end">
           <button
             onClick={() => handleClick(todo)}
