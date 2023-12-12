@@ -34,7 +34,7 @@ export default function Home() {
     return (
       <>
         <Image src={"/motchi.svg"} width={64} height={64} alt={"logo"} />
-        <h1 className="text-2xl font-black">Sign in to continue</h1>
+        <h1>Sign in to continue</h1>
         <p className="mb-8 text-center">
           You need to sign in to motchi first to store your todos.
         </p>
@@ -90,19 +90,19 @@ export default function Home() {
           Add
         </button>
       </div>
-      <h2 className="text-xl mt-4">Today</h2>
+      <h2 className="mt-4">Today</h2>
       <div className="flex flex-col gap-2 w-full max-w-4xl">
         <TodoCardList todos={todos} frequency="daily" />
       </div>
-      <h2 className="text-xl mt-4">This week</h2>
+      <h2 className="mt-4">This week</h2>
       <div className="flex flex-col gap-2 w-full max-w-4xl">
         <TodoCardList todos={todos} frequency="weekly" />
       </div>
-      <h2 className="text-xl mt-4">This month</h2>
+      <h2 className="mt-4">This month</h2>
       <div className="flex flex-col gap-2 w-full max-w-4xl">
         <TodoCardList todos={todos} frequency="monthly" />
       </div>
-      <h2 className="text-xl mt-4">This year</h2>
+      <h2 className="mt-4">This year</h2>
       <div className="flex flex-col gap-2 w-full max-w-4xl">
         <TodoCardList todos={todos} frequency="yearly" />
       </div>

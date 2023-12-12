@@ -29,7 +29,7 @@ export default function Login() {
   return (
     <>
       <Image src={"/motchi.svg"} width={64} height={64} alt={"logo"} />
-      <h1 className="text-2xl font-black">Welcome to motchi!</h1>
+      <h1>Welcome to motchi!</h1>
       <p className="mb-8 text-center">
         motchi helps you to keep your important things in mind.
       </p>
@@ -40,10 +40,7 @@ export default function Login() {
       >
         Continue with Google
       </button>
-      <button
-        onClick={() => signInWithGoogle()}
-        className="brn btn-link text-xs"
-      >
+      <button onClick={() => signInWithGoogle()} className="btn btn-link">
         I already have an account
       </button>
     </>

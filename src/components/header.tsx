@@ -18,7 +18,7 @@ export default function Header() {
   return (
     <header className="navbar bg-base-100">
       <div className="flex-1">
-        <Link href="/" className="btn btn-ghost text-xl">
+        <Link href="/" className="btn btn-ghost">
           motchi
           <Image src={"/motchi.svg"} width={20} height={20} alt={"logo"} />
         </Link>
