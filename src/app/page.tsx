@@ -2,16 +2,11 @@
 
 import FailedToFetchAlert from "@/components/failed-to-fetch-alert";
 import TodoCardList from "@/components/todo-card-list";
+import { todoConverter } from "@/lib/converters/todo-converter";
 import { auth } from "@/lib/firebase/auth";
 import { db } from "@/lib/firebase/firestore";
 import { Todo } from "@/types/todo";
-import {
-  DocumentData,
-  QueryDocumentSnapshot,
-  SnapshotOptions,
-  addDoc,
-  collection,
-} from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
