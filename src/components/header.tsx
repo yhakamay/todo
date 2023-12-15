@@ -3,17 +3,11 @@
 import { auth } from "@/lib/firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 
 export default function Header() {
-  const router = useRouter();
   const [user, loadingAuthState, _errorAuthState] = useAuthState(auth);
   const [signOut, loadingSignOut, _errorSignOut] = useSignOut(auth);
-
-  if (user) {
-    router.push("/");
-  }
 
   return (
     <header className="navbar bg-base-100">
