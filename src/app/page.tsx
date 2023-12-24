@@ -16,7 +16,7 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 export default function Home() {
   const titleRef = useRef<HTMLInputElement>(null);
   const frequencyRef = useRef<HTMLSelectElement>(null);
-  const [user, _, errorAuthState] = useAuthState(auth);
+  const [user, loadingUser, errorAuthState] = useAuthState(auth);
   const query = user
     ? collection(db, "users", user!.uid, "todos").withConverter(todoConverter)
     : null;
@@ -24,6 +24,10 @@ export default function Home() {
     snapshotListenOptions: { includeMetadataChanges: true },
   };
   const [todos, loading, error, __] = useCollectionData<Todo>(query, options);
+
+  if (loadingUser) {
+    return <span className="loading loading-ring loading-lg"></span>;
+  }
 
   if (!user) {
     return (
@@ -50,10 +54,6 @@ export default function Home() {
 
   if (error || errorAuthState) {
     return <FailedToFetchAlert />;
-  }
-
-  if (loading || todos === undefined) {
-    return <span className="loading loading-ring loading-lg"></span>;
   }
 
   return (
@@ -87,19 +87,51 @@ export default function Home() {
       </div>
       <h2 className="mt-4">Today</h2>
       <div className="flex flex-col gap-2 w-full max-w-4xl">
-        <TodoCardList todos={todos} frequency="daily" />
+        {loading || todos === undefined ? (
+          <>
+            <div className="skeleton w-full h-32"></div>
+            <div className="skeleton w-full h-32"></div>
+            <div className="skeleton w-full h-32"></div>
+          </>
+        ) : (
+          <TodoCardList todos={todos} frequency="daily" />
+        )}
       </div>
       <h2 className="mt-4">This week</h2>
       <div className="flex flex-col gap-2 w-full max-w-4xl">
-        <TodoCardList todos={todos} frequency="weekly" />
+        {loading || todos === undefined ? (
+          <>
+            <div className="skeleton w-full h-32"></div>
+            <div className="skeleton w-full h-32"></div>
+            <div className="skeleton w-full h-32"></div>
+          </>
+        ) : (
+          <TodoCardList todos={todos} frequency="weekly" />
+        )}
       </div>
       <h2 className="mt-4">This month</h2>
       <div className="flex flex-col gap-2 w-full max-w-4xl">
-        <TodoCardList todos={todos} frequency="monthly" />
+        {loading || todos === undefined ? (
+          <>
+            <div className="skeleton w-full h-32"></div>
+            <div className="skeleton w-full h-32"></div>
+            <div className="skeleton w-full h-32"></div>
+          </>
+        ) : (
+          <TodoCardList todos={todos} frequency="monthly" />
+        )}
       </div>
       <h2 className="mt-4">This year</h2>
       <div className="flex flex-col gap-2 w-full max-w-4xl">
-        <TodoCardList todos={todos} frequency="yearly" />
+        {loading || todos === undefined ? (
+          <>
+            <div className="skeleton w-full h-32"></div>
+            <div className="skeleton w-full h-32"></div>
+            <div className="skeleton w-full h-32"></div>
+          </>
+        ) : (
+          <TodoCardList todos={todos} frequency="yearly" />
+        )}
       </div>
     </>
   );
