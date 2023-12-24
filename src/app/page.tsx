@@ -56,10 +56,6 @@ export default function Home() {
     return <FailedToFetchAlert />;
   }
 
-  if (loading || todos === undefined) {
-    return <span className="loading loading-ring loading-lg"></span>;
-  }
-
   return (
     <>
       <div className="flex flex-row gap-2 w-full max-w-4xl">
@@ -91,19 +87,51 @@ export default function Home() {
       </div>
       <h2 className="mt-4">Today</h2>
       <div className="flex flex-col gap-2 w-full max-w-4xl">
-        <TodoCardList todos={todos} frequency="daily" />
+        {loading || todos === undefined ? (
+          <>
+            <div className="skeleton w-full h-32"></div>
+            <div className="skeleton w-full h-32"></div>
+            <div className="skeleton w-full h-32"></div>
+          </>
+        ) : (
+          <TodoCardList todos={todos} frequency="daily" />
+        )}
       </div>
       <h2 className="mt-4">This week</h2>
       <div className="flex flex-col gap-2 w-full max-w-4xl">
-        <TodoCardList todos={todos} frequency="weekly" />
+        {loading || todos === undefined ? (
+          <>
+            <div className="skeleton w-full h-32"></div>
+            <div className="skeleton w-full h-32"></div>
+            <div className="skeleton w-full h-32"></div>
+          </>
+        ) : (
+          <TodoCardList todos={todos} frequency="weekly" />
+        )}
       </div>
       <h2 className="mt-4">This month</h2>
       <div className="flex flex-col gap-2 w-full max-w-4xl">
-        <TodoCardList todos={todos} frequency="monthly" />
+        {loading || todos === undefined ? (
+          <>
+            <div className="skeleton w-full h-32"></div>
+            <div className="skeleton w-full h-32"></div>
+            <div className="skeleton w-full h-32"></div>
+          </>
+        ) : (
+          <TodoCardList todos={todos} frequency="monthly" />
+        )}
       </div>
       <h2 className="mt-4">This year</h2>
       <div className="flex flex-col gap-2 w-full max-w-4xl">
-        <TodoCardList todos={todos} frequency="yearly" />
+        {loading || todos === undefined ? (
+          <>
+            <div className="skeleton w-full h-32"></div>
+            <div className="skeleton w-full h-32"></div>
+            <div className="skeleton w-full h-32"></div>
+          </>
+        ) : (
+          <TodoCardList todos={todos} frequency="yearly" />
+        )}
       </div>
     </>
   );
