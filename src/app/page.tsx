@@ -16,7 +16,7 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 export default function Home() {
   const titleRef = useRef<HTMLInputElement>(null);
   const frequencyRef = useRef<HTMLSelectElement>(null);
-  const [user, _, errorAuthState] = useAuthState(auth);
+  const [user, loadingUser, errorAuthState] = useAuthState(auth);
   const query = user
     ? collection(db, "users", user!.uid, "todos").withConverter(todoConverter)
     : null;
@@ -24,6 +24,10 @@ export default function Home() {
     snapshotListenOptions: { includeMetadataChanges: true },
   };
   const [todos, loading, error, __] = useCollectionData<Todo>(query, options);
+
+  if (loadingUser) {
+    return <span className="loading loading-ring loading-lg"></span>;
+  }
 
   if (!user) {
     return (
