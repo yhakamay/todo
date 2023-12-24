@@ -2,16 +2,11 @@
 
 import FailedToFetchAlert from "@/components/failed-to-fetch-alert";
 import TodoCardList from "@/components/todo-card-list";
+import { todoConverter } from "@/lib/converters/todo-converter";
 import { auth } from "@/lib/firebase/auth";
 import { db } from "@/lib/firebase/firestore";
 import { Todo } from "@/types/todo";
-import {
-  DocumentData,
-  QueryDocumentSnapshot,
-  SnapshotOptions,
-  addDoc,
-  collection,
-} from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
@@ -145,31 +140,3 @@ export default function Home() {
     }
   }
 }
-
-const todoConverter = {
-  toFirestore: function (todo: Todo): DocumentData {
-    return {
-      title: todo.title,
-      description: todo.description,
-      createdAt: todo.createdAt,
-      lastUpdatedAt: todo.lastUpdatedAt,
-      frequency: todo.frequency,
-      completedDates: todo.completedDates,
-    };
-  },
-  fromFirestore: function (
-    snapshot: QueryDocumentSnapshot,
-    options: SnapshotOptions
-  ): Todo {
-    const data = snapshot.data(options);
-    return {
-      id: snapshot.id,
-      title: data.title,
-      description: data.description,
-      createdAt: data.createdAt.toDate(),
-      lastUpdatedAt: data.lastUpdatedAt.toDate(),
-      frequency: data.frequency,
-      completedDates: data.completedDates?.map((date: any) => date.toDate()),
-    };
-  },
-};
