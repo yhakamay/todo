@@ -27,7 +27,7 @@ export default function Header() {
                 className="btn btn-ghost btn-circle avatar"
                 title="User menu"
               >
-                <div className="w-10 rounded-full">
+                <div className="w-8 rounded-full">
                   <Image
                     alt={user.displayName || user.email || "User"}
                     width={40}
