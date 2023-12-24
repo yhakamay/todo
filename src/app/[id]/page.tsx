@@ -28,12 +28,17 @@ export default function TodoDetails(props: TodoDetailsProps) {
     return <FailedToFetchAlert />;
   }
 
-  if (loadingTodo) {
-    return <span className="loading loading-ring loading-lg"></span>;
-  }
-
-  if (!todo) {
-    return <FailedToFetchAlert />;
+  if (loadingTodo || !todo) {
+    return (
+      <>
+        <div className="skeleton h-8 w-96"></div>
+        <div className="skeleton h-4 w-full"></div>
+        <div className="skeleton h-4 w-full"></div>
+        <div className="skeleton h-4 w-full"></div>
+        <div className="skeleton h-4 w-full"></div>
+        <div className="skeleton h-32 w-full"></div>
+      </>
+    );
   }
 
   return (
