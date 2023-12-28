@@ -45,7 +45,7 @@ export default function Header() {
           </svg>
         </label>
         <div>
-          {user && !loadingAuthState && !loadingSignOut && (
+          {user && !loadingAuthState && !loadingSignOut ? (
             <>
               <div className="dropdown dropdown-end">
                 <div
@@ -77,6 +77,10 @@ export default function Header() {
                 </ul>
               </div>
             </>
+          ) : (
+            <div className="w-12 flex flex-row justify-center">
+              <div className="skeleton w-8 h-8 rounded-full"></div>
+            </div>
           )}
         </div>
       </div>
