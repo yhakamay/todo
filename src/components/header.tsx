@@ -3,11 +3,18 @@
 import { auth } from "@/lib/firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 
 export default function Header() {
   const [user, loadingAuthState, _errorAuthState] = useAuthState(auth);
   const [signOut, loadingSignOut, _errorSignOut] = useSignOut(auth);
+  const [isDark, setIsDark] = useState<boolean>(
+    JSON.parse(localStorage.getItem("isDark") ?? "false")
+  );
+  useEffect(() => {
+    localStorage.setItem("isDark", JSON.stringify(isDark));
+  }, [isDark]);
 
   return (
     <header className="navbar bg-base-100">
@@ -29,6 +36,8 @@ export default function Header() {
         <label className="swap swap-rotate">
           <input
             type="checkbox"
+            checked={isDark}
+            onChange={() => setIsDark(!isDark)}
             className="theme-controller"
             value="coffee"
             aria-label="Toggle theme"
