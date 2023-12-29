@@ -30,7 +30,7 @@ export default function Header() {
           <input
             type="checkbox"
             className="theme-controller"
-            value="coffee"
+            value="forest"
             aria-label="Toggle theme"
           />
           <svg
