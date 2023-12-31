@@ -3,9 +3,19 @@
 import { auth } from "@/lib/firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
-import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
+import {
+  useAuthState,
+  useSignInWithGoogle,
+  useSignOut,
+} from "react-firebase-hooks/auth";
 
 export default function Header() {
+  const [
+    signInWithGoogle,
+    _user,
+    loadingSignInWithGoogle,
+    _errorSignInWithGoogle,
+  ] = useSignInWithGoogle(auth);
   const [user, loadingAuthState, _errorAuthState] = useAuthState(auth);
   const [signOut, loadingSignOut, _errorSignOut] = useSignOut(auth);
 
@@ -26,7 +36,7 @@ export default function Header() {
         </Link>
       </div>
       <div className="flex-none">
-        <label className="swap swap-rotate">
+        <label className="swap swap-rotate mr-4">
           <input
             type="checkbox"
             className="theme-controller"
@@ -53,7 +63,11 @@ export default function Header() {
           </svg>
         </label>
         <div>
-          {user && !loadingAuthState && !loadingSignOut ? (
+          {loadingAuthState || loadingSignOut ? (
+            <div className="w-12 flex flex-row justify-center">
+              <div className="skeleton w-8 h-8 rounded-full"></div>
+            </div>
+          ) : user ? (
             <>
               <div className="dropdown dropdown-end">
                 <div
@@ -86,9 +100,18 @@ export default function Header() {
               </div>
             </>
           ) : (
-            <div className="w-12 flex flex-row justify-center">
-              <div className="skeleton w-8 h-8 rounded-full"></div>
-            </div>
+            <button
+              onClick={() => signInWithGoogle()}
+              className="btn btn-primary"
+              title="Sign in with Google"
+              type="button"
+              disabled={loadingSignInWithGoogle || loadingAuthState}
+            >
+              {(loadingSignInWithGoogle || loadingAuthState) && (
+                <span className="loading loading-spinner"></span>
+              )}
+              Login
+            </button>
           )}
         </div>
       </div>
