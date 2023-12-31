@@ -37,17 +37,17 @@ export default function Home() {
 
   return (
     <>
-      <div className="flex flex-row gap-2 w-full max-w-4xl">
+      <div className="w-full max-w-4xl join">
         <input
           type="text"
           ref={titleRef}
           placeholder="Type new todo"
           autoFocus
-          className="input input-bordered w-full"
+          className="input input-bordered w-full join-item"
         />
         <select
           ref={frequencyRef}
-          className="select select-bordered w-32"
+          className="select select-bordered w-32 join-item"
           defaultValue=""
           title="Frequency"
         >
@@ -60,7 +60,10 @@ export default function Home() {
           <option value="yearly">Yearly</option>
           <option value="once">Once</option>
         </select>
-        <button onClick={handleClick} className="btn btn-primary self-center">
+        <button
+          onClick={handleClick}
+          className="btn btn-primary self-center join-item"
+        >
           Add
         </button>
       </div>
