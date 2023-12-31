@@ -36,7 +36,7 @@ export default function Header() {
         </Link>
       </div>
       <div className="flex-none">
-        <label className="swap swap-rotate">
+        <label className="swap swap-rotate mr-4">
           <input
             type="checkbox"
             className="theme-controller"
