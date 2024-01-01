@@ -16,7 +16,7 @@ export default function TodoCardList(props: todoCardListPtops) {
   const filteredTodos = todos.filter((todo) => todo.frequency === frequency);
   const incompleteTodos = filteredTodos.filter(
     // only todos that are not completed in the current frequency
-    // for examle, if the frequency is "daily", only todos that are not completed today
+    // for example, if the frequency is "daily", only todos that are not completed today
     (todo) =>
       !todo.completedDates?.some((completedDate) => {
         const now = new Date();
@@ -66,14 +66,20 @@ export default function TodoCardList(props: todoCardListPtops) {
           <TodoCard key={todo.id} todo={todo} completed={false} />
         ))}
       </div>
-      <div
-        className={`${expanded ? "stack" : "flex flex-col gap-2"}`}
-        onClick={() => setExpanded(!expanded)}
-      >
+      <div className={`${expanded ? "stack" : "flex flex-col gap-2"}`}>
         {completedTodos.map((todo) => (
           <TodoCard key={todo.id} todo={todo} completed />
         ))}
       </div>
+      {completedTodos.length > 1 && (
+        <button
+          type="button"
+          onClick={() => setExpanded(!expanded)}
+          className="btn btn-ghost btn-sm font-normal mt-2"
+        >
+          {expanded ? "Show more" : "Show less"}
+        </button>
+      )}
     </>
   );
 }
