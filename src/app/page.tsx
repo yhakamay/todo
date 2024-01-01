@@ -3,6 +3,7 @@
 import FailedToFetchAlert from "@/components/failed-to-fetch-alert";
 import NewTodoFields from "@/components/new-todo-fields";
 import TodoCardList from "@/components/todo-card-list";
+import TodoCardListSkeleton from "@/components/todo-card-list-skeleton";
 import { todoConverter } from "@/lib/converters/todo-converter";
 import { auth } from "@/lib/firebase/auth";
 import { db } from "@/lib/firebase/firestore";
@@ -46,11 +47,7 @@ export default function Home() {
       <h2 className="mt-4">Today</h2>
       <div className="flex flex-col gap-2 w-full max-w-4xl">
         {loading || todos === undefined ? (
-          <>
-            <div className="skeleton w-full h-32"></div>
-            <div className="skeleton w-full h-32"></div>
-            <div className="skeleton w-full h-32"></div>
-          </>
+          <TodoCardListSkeleton count={3} />
         ) : (
           <TodoCardList todos={todos} frequency="daily" />
         )}
@@ -58,11 +55,7 @@ export default function Home() {
       <h2 className="mt-4">This week</h2>
       <div className="flex flex-col gap-2 w-full max-w-4xl">
         {loading || todos === undefined ? (
-          <>
-            <div className="skeleton w-full h-32"></div>
-            <div className="skeleton w-full h-32"></div>
-            <div className="skeleton w-full h-32"></div>
-          </>
+          <TodoCardListSkeleton count={3} />
         ) : (
           <TodoCardList todos={todos} frequency="weekly" />
         )}
@@ -70,11 +63,7 @@ export default function Home() {
       <h2 className="mt-4">This month</h2>
       <div className="flex flex-col gap-2 w-full max-w-4xl">
         {loading || todos === undefined ? (
-          <>
-            <div className="skeleton w-full h-32"></div>
-            <div className="skeleton w-full h-32"></div>
-            <div className="skeleton w-full h-32"></div>
-          </>
+          <TodoCardListSkeleton count={3} />
         ) : (
           <TodoCardList todos={todos} frequency="monthly" />
         )}
@@ -82,11 +71,7 @@ export default function Home() {
       <h2 className="mt-4">This year</h2>
       <div className="flex flex-col gap-2 w-full max-w-4xl">
         {loading || todos === undefined ? (
-          <>
-            <div className="skeleton w-full h-32"></div>
-            <div className="skeleton w-full h-32"></div>
-            <div className="skeleton w-full h-32"></div>
-          </>
+          <TodoCardListSkeleton count={3} />
         ) : (
           <TodoCardList todos={todos} frequency="yearly" />
         )}
