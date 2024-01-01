@@ -16,7 +16,7 @@ export default function TodoCardList(props: todoCardListPtops) {
   const filteredTodos = todos.filter((todo) => todo.frequency === frequency);
   const incompleteTodos = filteredTodos.filter(
     // only todos that are not completed in the current frequency
-    // for examle, if the frequency is "daily", only todos that are not completed today
+    // for example, if the frequency is "daily", only todos that are not completed today
     (todo) =>
       !todo.completedDates?.some((completedDate) => {
         const now = new Date();
