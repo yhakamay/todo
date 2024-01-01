@@ -75,7 +75,7 @@ export default function TodoCardList(props: todoCardListPtops) {
         <button
           type="button"
           onClick={() => setExpanded(!expanded)}
-          className="btn btn-ghost btn-sm font-normal mt-4"
+          className="btn btn-ghost btn-sm font-normal mt-2"
         >
           {expanded ? "Show more" : "Show less"}
         </button>
