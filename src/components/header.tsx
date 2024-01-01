@@ -1,16 +1,8 @@
-"use client";
-
-import { auth } from "@/lib/firebase/auth";
 import Link from "next/link";
-import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 import ThemeController from "./theme-controller";
 import AvatarButton from "./avatar-button";
-import { LoginButton } from "./login-button";
 
 export default function Header() {
-  const [user, loadingAuthState, _errorAuthState] = useAuthState(auth);
-  const [signOut, loadingSignOut, _errorSignOut] = useSignOut(auth);
-
   return (
     <header className="navbar bg-base-100">
       <div className="flex-1">
@@ -29,17 +21,7 @@ export default function Header() {
       </div>
       <div className="flex-none">
         <ThemeController />
-        <div>
-          {loadingAuthState || loadingSignOut ? (
-            <div className="w-12 flex flex-row justify-center">
-              <div className="skeleton w-8 h-8 rounded-full"></div>
-            </div>
-          ) : user ? (
-            <AvatarButton user={user} signOut={signOut} />
-          ) : (
-            <LoginButton />
-          )}
-        </div>
+        <AvatarButton />
       </div>
     </header>
   );

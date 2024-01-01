@@ -1,13 +1,23 @@
-import { User } from "firebase/auth";
+"use client";
+
+import { auth } from "@/lib/firebase/auth";
 import Image from "next/image";
+import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
+import { LoginButton } from "./login-button";
 
-type Props = {
-  user: User;
-  signOut: () => Promise<boolean>;
-};
+export default function AvatarButton() {
+  const [user, loadingAuthState, _errorAuthState] = useAuthState(auth);
+  const [signOut, loadingSignOut, _errorSignOut] = useSignOut(auth);
 
-export default function AvatarButton(props: Props) {
-  const { user, signOut } = props;
+  if (loadingAuthState || loadingSignOut) {
+    return (
+      <div className="w-12 flex flex-row justify-center">
+        <div className="skeleton w-8 h-8 rounded-full"></div>
+      </div>
+    );
+  }
+
+  if (!user) return <LoginButton />;
 
   return (
     <div className="dropdown dropdown-end">
