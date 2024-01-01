@@ -44,7 +44,7 @@ export default function Home() {
         frequencyRef={frequencyRef}
         handleClick={handleClick}
       />
-      <h2 className="mt-4">Today</h2>
+      <h2 className="mt-8 mb-0">Today</h2>
       <div className="flex flex-col gap-2 w-full max-w-4xl">
         {loading || todos === undefined ? (
           <TodoCardListSkeleton count={3} />
@@ -52,7 +52,7 @@ export default function Home() {
           <TodoCardList todos={todos} frequency="daily" />
         )}
       </div>
-      <h2 className="mt-4">This week</h2>
+      <h2 className="mt-8 mb-0">This week</h2>
       <div className="flex flex-col gap-2 w-full max-w-4xl">
         {loading || todos === undefined ? (
           <TodoCardListSkeleton count={3} />
@@ -60,7 +60,7 @@ export default function Home() {
           <TodoCardList todos={todos} frequency="weekly" />
         )}
       </div>
-      <h2 className="mt-4">This month</h2>
+      <h2 className="mt-8 mb-0">This month</h2>
       <div className="flex flex-col gap-2 w-full max-w-4xl">
         {loading || todos === undefined ? (
           <TodoCardListSkeleton count={3} />
@@ -68,7 +68,7 @@ export default function Home() {
           <TodoCardList todos={todos} frequency="monthly" />
         )}
       </div>
-      <h2 className="mt-4">This year</h2>
+      <h2 className="mt-8 mb-0">This year</h2>
       <div className="flex flex-col gap-2 w-full max-w-4xl">
         {loading || todos === undefined ? (
           <TodoCardListSkeleton count={3} />
