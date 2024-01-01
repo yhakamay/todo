@@ -66,14 +66,20 @@ export default function TodoCardList(props: todoCardListPtops) {
           <TodoCard key={todo.id} todo={todo} completed={false} />
         ))}
       </div>
-      <div
-        className={`${expanded ? "stack" : "flex flex-col gap-2"}`}
-        onClick={() => setExpanded(!expanded)}
-      >
+      <div className={`${expanded ? "stack" : "flex flex-col gap-2"}`}>
         {completedTodos.map((todo) => (
           <TodoCard key={todo.id} todo={todo} completed />
         ))}
       </div>
+      {completedTodos.length > 1 && (
+        <button
+          type="button"
+          onClick={() => setExpanded(!expanded)}
+          className="btn btn-ghost btn-sm font-normal mt-2"
+        >
+          {expanded ? "Show more" : "Show less"}
+        </button>
+      )}
     </>
   );
 }
