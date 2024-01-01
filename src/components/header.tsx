@@ -2,21 +2,12 @@
 
 import { auth } from "@/lib/firebase/auth";
 import Link from "next/link";
-import {
-  useAuthState,
-  useSignInWithGoogle,
-  useSignOut,
-} from "react-firebase-hooks/auth";
+import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 import ThemeController from "./theme-controller";
 import AvatarButton from "./avatar-button";
+import { LoginButton } from "./login-button";
 
 export default function Header() {
-  const [
-    signInWithGoogle,
-    _user,
-    loadingSignInWithGoogle,
-    _errorSignInWithGoogle,
-  ] = useSignInWithGoogle(auth);
   const [user, loadingAuthState, _errorAuthState] = useAuthState(auth);
   const [signOut, loadingSignOut, _errorSignOut] = useSignOut(auth);
 
@@ -46,18 +37,7 @@ export default function Header() {
           ) : user ? (
             <AvatarButton user={user} signOut={signOut} />
           ) : (
-            <button
-              onClick={() => signInWithGoogle()}
-              className="btn btn-primary"
-              title="Sign in with Google"
-              type="button"
-              disabled={loadingSignInWithGoogle || loadingAuthState}
-            >
-              {(loadingSignInWithGoogle || loadingAuthState) && (
-                <span className="loading loading-spinner"></span>
-              )}
-              Login
-            </button>
+            <LoginButton />
           )}
         </div>
       </div>
