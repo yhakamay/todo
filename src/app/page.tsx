@@ -37,7 +37,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="w-full max-w-4xl join">
+      <div className="w-full max-w-4xl join join-vertical sm:join-horizontal">
         <input
           type="text"
           ref={titleRef}
@@ -47,7 +47,7 @@ export default function Home() {
         />
         <select
           ref={frequencyRef}
-          className="select select-bordered w-32 join-item"
+          className="select select-bordered join-item"
           defaultValue=""
           title="Frequency"
         >
@@ -60,10 +60,7 @@ export default function Home() {
           <option value="yearly">Yearly</option>
           <option value="once">Once</option>
         </select>
-        <button
-          onClick={handleClick}
-          className="btn btn-primary self-center join-item"
-        >
+        <button onClick={handleClick} className="btn btn-primary join-item">
           Add
         </button>
       </div>
