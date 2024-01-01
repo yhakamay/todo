@@ -14,7 +14,7 @@ export function LoginButton() {
       disabled={loadingSignInWithGoogle}
     >
       {loadingSignInWithGoogle && (
-        <span className="loading loading-spinner"></span>
+        <span className="loading loading-ring"></span>
       )}
       Login
     </button>
