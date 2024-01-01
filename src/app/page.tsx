@@ -95,9 +95,7 @@ export default function Home() {
   );
 
   async function handleClick() {
-    console.info("Adding todo");
     await addTodo();
-    console.info("Todo added");
     if (titleRef.current) {
       titleRef.current.value = "";
     }
@@ -126,7 +124,7 @@ export default function Home() {
       );
       await addDoc(myTodosRef, newTodo);
     } catch (e) {
-      console.error("Error adding document: ", e);
+      // TODO: Handle error
     }
   }
 }
