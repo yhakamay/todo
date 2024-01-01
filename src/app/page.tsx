@@ -8,14 +8,11 @@ import { todoConverter } from "@/lib/converters/todo-converter";
 import { auth } from "@/lib/firebase/auth";
 import { db } from "@/lib/firebase/firestore";
 import { Todo } from "@/types/todo";
-import { addDoc, collection } from "firebase/firestore";
-import { useRef } from "react";
+import { collection } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
 export default function Home() {
-  const titleRef = useRef<HTMLInputElement>(null);
-  const frequencyRef = useRef<HTMLSelectElement>(null);
   const [user, loadingUser, errorAuthState] = useAuthState(auth);
   const query = user
     ? collection(db, "users", user!.uid, "todos").withConverter(todoConverter)
@@ -39,11 +36,7 @@ export default function Home() {
 
   return (
     <>
-      <NewTodoFields
-        titleRef={titleRef}
-        frequencyRef={frequencyRef}
-        handleClick={handleClick}
-      />
+      <NewTodoFields />
       <h2 className="mt-8 mb-0">Today</h2>
       <div className="flex flex-col gap-2 w-full max-w-4xl">
         {loading || todos === undefined ? (
@@ -78,38 +71,4 @@ export default function Home() {
       </div>
     </>
   );
-
-  async function handleClick() {
-    await addTodo();
-    if (titleRef.current) {
-      titleRef.current.value = "";
-    }
-    titleRef.current?.focus();
-  }
-
-  async function addTodo() {
-    if (!titleRef.current?.value) return;
-    if (!frequencyRef.current?.value) return;
-
-    const newTodo: Todo = {
-      title: titleRef.current?.value,
-      description: null,
-      createdAt: new Date(),
-      lastUpdatedAt: new Date(),
-      frequency: (frequencyRef.current?.value as Todo["frequency"]) ?? null,
-      completedDates: [],
-    };
-
-    try {
-      const myTodosRef = collection(
-        db,
-        "users",
-        auth.currentUser!.uid,
-        "todos"
-      );
-      await addDoc(myTodosRef, newTodo);
-    } catch (e) {
-      // TODO: Handle error
-    }
-  }
 }
