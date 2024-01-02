@@ -17,7 +17,8 @@ export default function AvatarButton() {
     );
   }
 
-  if (!user) return <LoginButton />;
+  if (!user)
+    return <LoginButton title={"Login"} style={"primary"} method={"google"} />;
 
   return (
     <div className="dropdown dropdown-end">
