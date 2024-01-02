@@ -37,7 +37,7 @@ export default function Home() {
   return (
     <>
       <NewTodoFields />
-      <div className="pointer-events-none opacity-70 hidden sm:flex w-full">
+      <div className="pointer-events-none opacity-70 hidden sm:flex w-full max-w-4xl">
         <p className="not-prose text-sm">
           Pro tip: Hit <kbd className="kbd kbd-xs">return</kbd> to add a new
           todo
