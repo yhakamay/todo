@@ -37,6 +37,12 @@ export default function Home() {
   return (
     <>
       <NewTodoFields />
+      <div className="pointer-events-none opacity-70 hidden md:flex w-full">
+        <p className="not-prose text-sm">
+          Pro tip: Hit <kbd className="kbd kbd-xs">return</kbd> to add a new
+          todo
+        </p>
+      </div>
       <h2 className="mt-8 mb-0">Today</h2>
       <div className="flex flex-col gap-2 w-full max-w-4xl">
         {loading || todos === undefined ? (
