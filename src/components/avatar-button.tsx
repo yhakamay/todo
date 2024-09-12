@@ -1,23 +1,31 @@
 "use client";
 
-import { auth } from "@/lib/firebase/auth";
 import Image from "next/image";
-import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
+import { auth } from "@/lib/firebase/auth";
+import { useEffect, useState } from "react";
+import { User } from "firebase/auth";
 import { LoginButton } from "./login-button";
 
 export default function AvatarButton() {
-  const [user, loadingAuthState, _errorAuthState] = useAuthState(auth);
-  const [signOut, loadingSignOut, _errorSignOut] = useSignOut(auth);
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  if (loadingAuthState || loadingSignOut) {
-    return (
-      <div className="w-12 flex flex-row justify-center">
-        <div className="skeleton w-8 h-8 rounded-full"></div>
-      </div>
-    );
+  useEffect(() => {
+    const unsub = auth.onAuthStateChanged((user) => {
+      setUser(user);
+      setLoading(false);
+    });
+
+    return () => unsub();
+  });
+
+  if (loading) {
+    return <div className="skeleton w-8 h-8 rounded-full"></div>;
   }
 
-  if (!user) return <LoginButton />;
+  if (!user || user.isAnonymous) {
+    return <LoginButton title="Login" style="primary" method="google" />;
+  }
 
   return (
     <div className="dropdown dropdown-end">
@@ -42,7 +50,7 @@ export default function AvatarButton() {
       >
         <li>
           <button
-            onClick={() => signOut()}
+            onClick={() => auth.signOut()}
             className="text-error"
             type="button"
           >

@@ -1,6 +1,7 @@
 "use client";
 
 import FailedToFetchAlert from "@/components/failed-to-fetch-alert";
+import { LoginButton } from "@/components/login-button";
 import NewTodoFields from "@/components/new-todo-fields";
 import TodoCardList from "@/components/todo-card-list";
 import TodoCardListSkeleton from "@/components/todo-card-list-skeleton";
@@ -27,7 +28,24 @@ export default function Home() {
   }
 
   if (!user) {
-    return <h1>Oops! Not signed in</h1>;
+    return (
+      <div className="not-prose w-full max-w-4xl flex flex-col">
+        <h1 className="text-2xl font-bold text-center mb-2">
+          Oops! Not signed in
+        </h1>
+        <p className="text-center">Sign in or continue anonymously</p>
+        <LoginButton
+          title="Sign in with Google"
+          style="primary"
+          method={"google"}
+        />
+        <LoginButton
+          title="Continue anonymously"
+          style="link"
+          method={"anonymous"}
+        />
+      </div>
+    );
   }
 
   if (error || errorAuthState) {

@@ -1,22 +1,44 @@
 import { auth } from "@/lib/firebase/auth";
-import { useSignInWithGoogle } from "react-firebase-hooks/auth";
+import {
+  GoogleAuthProvider,
+  signInAnonymously,
+  signInWithPopup,
+} from "firebase/auth";
+import { useState } from "react";
 
-export function LoginButton() {
-  const [signInWithGoogle, _, loadingSignInWithGoogle, __] =
-    useSignInWithGoogle(auth);
+type Props = {
+  title: string;
+  disabled?: boolean;
+  style: "primary" | "link";
+  method: "google" | "anonymous";
+};
+
+export function LoginButton(props: Props) {
+  const { title, disabled, style, method } = props;
+  const [loading, setLoading] = useState(false);
+  const handleSignIn = async () => {
+    if (method === "google") {
+      setLoading(true);
+      const provider = new GoogleAuthProvider();
+      await signInWithPopup(auth, provider);
+      setLoading(false);
+    } else {
+      setLoading(true);
+      await signInAnonymously(auth);
+      setLoading(false);
+    }
+  };
 
   return (
     <button
-      onClick={() => signInWithGoogle()}
-      className="btn btn-primary"
-      title="Sign in with Google"
+      onClick={handleSignIn}
+      className={`btn btn-${style} ${disabled ? "disabled" : ""}`}
+      title={title}
       type="button"
-      disabled={loadingSignInWithGoogle}
+      disabled={loading || disabled}
     >
-      {loadingSignInWithGoogle && (
-        <span className="loading loading-ring"></span>
-      )}
-      Login
+      {loading && <span className="loading loading-ring"></span>}
+      {title}
     </button>
   );
 }
